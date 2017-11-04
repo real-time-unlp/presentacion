@@ -1,0 +1,37 @@
+% Malmoe default professionalfonts
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+	\usetheme{Malmoe}
+	\definecolor{verdeUNLP}{RGB}{0,95,97}
+	\setbeamercolor{structure}{fg=verdeUNLP}
+}
+
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{201F}{}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{cleveref}
+\usepackage{amsmath}
+\usepackage[nomessages]{fp}
+\usepackage{spreadtab}
+\usepackage{xcolor}
+\definecolor{darkpastelgreen}{rgb}{0.01, 0.75, 0.24}
+\definecolor{bostonuniversityred}{rgb}{0.8, 0.0, 0.0} 
+
+\providecommand{\inlinecode}[1]{\texttt{#1}}
+
+\input{caratula}
+
+\begin{document}
+
+	\begin{frame}[plain]
+		\titlepage
+	\end{frame}
+
+	\input{desarrollo}
+
+\end{document}

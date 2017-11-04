@@ -1,0 +1,51 @@
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  	\begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+  		\usebeamerfont{author in head/foot}\insertshortauthor
+  	\end{beamercolorbox}%
+  	\begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+  		\usebeamerfont{author in head/foot}\insertshorttitle
+  	\end{beamercolorbox}%
+  	\begin{beamercolorbox}[wd=.416667\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+  		\usebeamerfont{title in head/foot}\insertshortdate
+  	\end{beamercolorbox}%
+  	\begin{beamercolorbox}[wd=0.083333\paperwidth,ht=2.25ex,dp=1ex,right]{title in head/foot}%
+  		\insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  	\end{beamercolorbox}}%
+  	\vskip0pt%
+}
+\makeatother
+
+\makeatletter
+\long\def\beamer@author[#1]#2{%
+  \def\and{\tabularnewline}
+  \def\insertauthor{\def\inst{\beamer@insttitle}\def\and{\tabularnewline}%
+  \begin{tabular}{rl}#2\end{tabular}}%
+  \def\beamer@shortauthor{#1}%
+  \ifbeamer@autopdfinfo%
+    \def\beamer@andstripped{}%
+    \beamer@stripands#1 \and\relax
+    {\let\inst=\@gobble\let\thanks=\@gobble\def\and{, }\hypersetup{pdfauthor={\beamer@andstripped}}}
+  \fi%
+}
+\makeatother
+
+\title[STR (I115)]{Presentación de avance}
+
+\subtitle{Semáforos inteligentes}
+
+\author[Grupo --]{
+	García,& Agustín \and
+	Romero Dapozo,& Ramiro \and
+	Ternouski,& Sebastian Nahuel
+}
+
+\institute[]
+{	Sistemas de Tiempo Real (I115)\\
+	Facultad de Informática - UNLP
+}
+
+\date[Noviembre, 2017]{8 de Noviembre, 2017}
