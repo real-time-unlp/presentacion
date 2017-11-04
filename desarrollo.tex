@@ -6,50 +6,31 @@
 
 \begin{frame}
 	\frametitle{Descripción}
-	
 		\begin{block}{Motivación}
 			\begin{itemize}
 				\item Larga espera
 				\item Optimización de el control del paso
-				\item Situaciones de emergencia no contempladas
 			\end{itemize}
 		\end{block}
 
 		\begin{block}{Características generales}
 			\begin{itemize}
-				\item Semáforos de tres etapas
-				\item Control de transito vehicular y peatones
+				\item Control de tránsito vehicular y peatones
 				\item Algoritmo flexible y manejo de prioridades según el contexto
-				\item Diseño en FreeRTOS
+				\item Implementado en FreeRTOS
+				\item Semáforos de tres etapas
 			\end{itemize}
 		\end{block}
-
 \end{frame}
 
-% \subsection{Objetivos}
-% \begin{frame}
-% 	\frametitle{Objetivos}
-% 	\begin{block}{Objetivos primarios}
-% 		\begin{itemize}
-% 			\item Planificar las tareas en tiempo real
-% 			\item 
-% 		\end{itemize}
-% 	\end{block}
-% \end{frame}
-
 \subsection{Glosario}
+
 \begin{frame}
 	\frametitle{Glosario}
-	\begin{block}{Acronimos}
+	\begin{block}{Términos}
 		\begin{itemize}
-			\item Planificar las tareas en tiempo real
-			\item 
-		\end{itemize}
-	\end{block}
-	\begin{block}{Terminos}
-		\begin{itemize}
-			\item Planificar las tareas en tiempo real
-			\item 
+			\item Tramo: sentido en el que se circulan los vehículos
+			\item Actividad: estado de un semáforo en el que el sensor del semáforo detecta vehículos o peatones
 		\end{itemize}
 	\end{block}
 \end{frame}
@@ -58,41 +39,58 @@
 \section{Especificación}
 %------------------------------------------------
 
-\subsection{Requerimientos}
+\subsection{Funcionamiento}
+
 \begin{frame}
-	\frametitle{Requerimientos}
-	\begin{block}{Funcionales}
-		\begin{itemize}
-			\item Planificar las tareas en tiempo real
-			\item Configurable para 
-		\end{itemize}
-	\end{block}
+	\begin{columns}[T]
+		\begin{column}{.35\textwidth}
 
-	\begin{block}{No funcionales}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-	\end{block}
+			\begin{figure}[ht]
+				\centering 
+				\includegraphics[scale=0.6]{diagramas/fsm-light.pdf}
+			\end{figure}
 
-\end{frame}
-
-\subsection{Diagrama en bloques del sistema}
-\begin{frame}
-	\frametitle{Diagrama en bloques}
-\end{frame}
-
-\subsection{Explicación funcional del HW y SW}
-\begin{frame}
-	\frametitle{Explicación funcional}
-
+		\end{column}
+		\hfill
+		\begin{column}{.65\textwidth}
+			
+			\begin{block}{Funcionamiento entre estados}
+				\begin{itemize}
+					\item Si el semáforo cambia de estado a activo, la transición es de rojo a verde
+					\item Si solo el semáforo permanece activo y es el único, permaneces en verde
+				\end{itemize}
+			\end{block}
+			\begin{block}{Funcionamiento entre semáforos}
+				\begin{itemize}
+					\item Los semáforos realizan Round-Robin entre todos si ninguno está activo
+					\item Si al menos dos están activos se realiza Round-Robin entre los activos
+					\item Si hay solo un semáforo activo, permanece en verde
+				\end{itemize}
+			\end{block}
+		
+		\end{column}
+	\end{columns}
 \end{frame}
 
 %------------------------------------------------
-\section{Gestión}
+\section{Problemas}
 %------------------------------------------------
 
-\subsection{Presupuesto}
+\subsection{Iteraciones}
+
 \begin{frame}
-	\frametitle{Presupuesto}
-	
+	\begin{block}{Iteraciones}
+		Aspectos más importantes en cada iteración
+		\begin{itemize}
+			\item[1] Conjuntos de activos y inactivos, fuerte pasaje de datos entre tareas,  difícil corrección, clases: sensor, controlador y semáforos
+			\item[2] Con prioridades variables
+			\item[3] Sin prioridades variables, simplificación del modelo.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\subsection{Problemas con la implementación}
+
+\begin{frame}
+	\frametitle{Problemas con la implementación}
 \end{frame}
