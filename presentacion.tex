@@ -4,7 +4,7 @@
 
 \mode<presentation> {
 
-	\usetheme{Malmoe}
+	\usetheme{default}
 	\definecolor{verdeUNLP}{RGB}{0,95,97}
 	\setbeamercolor{structure}{fg=verdeUNLP}
 }
@@ -23,6 +23,17 @@
 \definecolor{bostonuniversityred}{rgb}{0.8, 0.0, 0.0} 
 
 \providecommand{\inlinecode}[1]{\texttt{#1}}
+
+\AtBeginSection[]{
+	\begin{frame}
+	\vfill
+	\centering
+	\begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+	  \usebeamerfont{title}\insertsectionhead\par%
+	\end{beamercolorbox}
+	\vfill
+	\end{frame}
+}
 
 \input{caratula}
 
