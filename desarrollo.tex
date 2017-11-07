@@ -6,16 +6,29 @@
 
 \begin{frame}
 	\frametitle{Introducción}
-		\begin{block}{Motivación}
-			\begin{itemize}
-				\item Larga espera.
-				\item Optimización del control de paso.
-				\item Peatones.
-				\item Reducción de consumo.
-				\item Contaminación ambiental.
-			\end{itemize}
-		\end{block}
-\end{frame}
+		\begin{columns}[T]
+            \begin{column}{.60\textwidth}
+                      \begin{block}{Motivación}
+                        \begin{itemize}
+                                 \item Larga espera.
+                                 \item Optimización del control de paso.
+                                 \item Peatones.
+                                 \item Reducción de consumo.
+                                 \item Contaminación ambiental.
+                         \end{itemize}
+                \end{block}
+              \end{column}
+              \hfill
+            \begin{column}{.40\textwidth}
+
+                     \begin{figure}[htbp]
+                                \centering
+                                \includegraphics[width=1\textwidth]{diagramas/motivacion.png}
+                        \end{figure}
+
+               \end{column}
+      \end{columns}
+	\end{frame}
 
 \subsection{Antecedentes}
 
@@ -23,10 +36,15 @@
 \frametitle{Introducción}
 \begin{block}{Antecedentes}
 	\begin{itemize}
-		\item Holanda: Reducción de tiempo entre transiciones % Menos espera teneiendo en cuenta estadistica de acción de los autos entre que aceleran
-		\item Brasil: ``SEMINT", utilizando sensores, prioridad, etc % Con paneles solares.
-		\item San Juan: Año 2008, utilizando sensores, procesamiento automático
+		\item Róterdam, Holanda: Calles equipadas con sensores de temperatura que detectan el grado de calor derivado del número de bicis que se acercan.
+		\item Brasil: Google Maps para ver dónde hay más vehículos y dejar la señal de verde por más tiempo en esos tramos.
+		\item Holanda: Intersecciones equipadas con LEDs en el pavimento para los peatones que cruzan distraídos con el celular.
 	\end{itemize}
+
+       \begin{figure}[htbp]
+               \centering
+               \includegraphics[width=0.5\textwidth]{diagramas/antecedente1.jpg}
+       \end{figure}
 \end{block}
 \end{frame}
 
@@ -53,45 +71,45 @@
 \frametitle{Todos los tramos inactivos}
 	\begin{figure}[htbp]
 		\centering
-		\includegraphics[width=0.50\textwidth]{diagramas/ningun-activo.eps}
+		\includegraphics[width=0.750\textwidth]{diagramas/ningun-activo.eps}
 	\end{figure}
-	El sistema debe responder haciendo Round-Robin entre todos los semáforos inactivos.
+	%El sistema debe responder haciendo Round-Robin entre todos los semáforos inactivos.
 \end{frame}
 
 \begin{frame}
 \frametitle{Un tramo activo}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.50\textwidth]{diagramas/un-activo.eps}
+	\includegraphics[width=0.750\textwidth]{diagramas/un-activo.eps}
 \end{figure}
-El sistema debe otorgarle verde sólo al semáforo activo.
+%El sistema debe otorgarle verde sólo al semáforo activo.
 \end{frame}
 
 \begin{frame}
 \frametitle{Más de un tramo activo}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.50\textwidth]{diagramas/dos-activos.eps}
+	\includegraphics[width=0.750\textwidth]{diagramas/dos-activos.eps}
 \end{figure}
-El sistema debe responder haciendo Round-Robin sólo entre los semáforos activos.
+%El sistema debe responder haciendo Round-Robin sólo entre los semáforos activos.
 \end{frame}
 
 \begin{frame}
 \frametitle{Todos los tramos activos}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.50\textwidth]{diagramas/todos-activos.eps}
+	\includegraphics[width=0.750\textwidth]{diagramas/todos-activos.eps}
 \end{figure}
-El sistema debe responder haciendo Round-Robin entre todos los semáforos.
+%El sistema debe responder haciendo Round-Robin entre todos los semáforos.
 \end{frame}
 
 \begin{frame}
 \frametitle{Interacción con peatones}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.50\textwidth]{diagramas/peaton-auto.eps}
+	\includegraphics[width=0.750\textwidth]{diagramas/peaton-auto.eps}
 \end{figure}
-La pulsación del botón le indica al sistema que por una única vez se le debe dar paso al peatón y luego se continúa de acuerdo a la actividad de cada tramo.
+%La pulsación del botón le indica al sistema que por una única vez se le debe dar paso al peatón y luego se continúa de acuerdo a la actividad de cada tramo.
 \end{frame}
 
 %------------------------------------------------
@@ -103,12 +121,29 @@ La pulsación del botón le indica al sistema que por una única vez se le debe 
 \begin{block}{}
 	\begin{itemize}
 		\item Implementación sobre la plataforma Arduino.
-		\item Implementación no oficialmente soportada de FreeRTOS.%\href{https://github.com/feilipu/Arduino\_FreeRTOS\_Library}
-
-		%\item Plaqueta Arduino UNO con el microcontrolador ATMEL
+		\item Implementación no oficialmente soportada de FreeRTOS. \href{https://github.com/feilipu/Arduino/FreeRTOS/Library}{https://github.com/feilipu/Arduino/FreeRTOS/Library}
 	\end{itemize}
+
+\begin{columns}[T]
+	\begin{column}{.50\textwidth}
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=1\textwidth]{diagramas/implementacion1.jpg}
+	\end{figure}
+	\end{column}
+	\hfill
+	\begin{column}{.50\textwidth}
+		
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=1\textwidth]{diagramas/implementacion2.jpg}
+		\end{figure}
+		
+	\end{column}
+\end{columns}
 \end{block}
 \end{frame}
+
 \subsection{Primera implementación}
 
 \begin{frame}
@@ -138,7 +173,6 @@ La pulsación del botón le indica al sistema que por una única vez se le debe 
 		\item Fácil de añadir más semáforos.
 		\item Admite fácilmente un semáforo que controle la circulación de los peatones.
 		\item Grave problema con el cambio de prioridades sobre tareas bloqueadas.
-
 	\end{itemize}
 \end{block}
 \end{frame}
