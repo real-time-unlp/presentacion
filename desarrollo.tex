@@ -151,11 +151,17 @@
 \begin{block}{Única sección crítica con una clase controlador}
 	\begin{itemize}
 		\item Planificación a cargo de una tarea de alta prioridad.
+		\item Una tarea a cargo del sensado del tráfico, también de alta prioridad.
 		\item Diferentes prioridades estáticas.
 		\item Gran cantidad de tareas corriendo en simultáneo.
 		\item Modelo productor-consumidor para el pasaje de datos.
+	\end{itemize}
+\end{block}
+\begin{block}{Problemas de la implementación}
+	\begin{itemize}
 		\item Poca escalabilidad.
 		\item Dificultad para considerar un semáforo para peatones.
+		\item En rojo todos los semáforos, cuando todos los tramos están inactivos.
 		%\item Debido a las prioridades estáticas, cuando todos los tramos están inactivos, no se puede realizar el Round-Robin%
 	\end{itemize}
 \end{block}
@@ -171,7 +177,6 @@
 		\item Admite fácilmente un semáforo que controle la circulación de los peatones.
 		\item Una tarea por semáforo más una tarea de sensado para el botón para peatones.
 		\item Fácil de añadir más semáforos.
-		\item Admite fácilmente un semáforo que controle la circulación de los peatones.
 		\item Grave problema con el cambio de prioridades sobre tareas bloqueadas.
 	\end{itemize}
 \end{block}
