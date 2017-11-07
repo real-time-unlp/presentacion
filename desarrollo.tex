@@ -36,8 +36,9 @@
 
 \begin{frame}
 \frametitle{Modelado y abstracción}
-\begin{block}{Intersección entre dos avenidas}
+\begin{block}{}
 	\begin{itemize}
+		\item Modelo de intersección entre dos avenidas.
 		\item Sensores de proximidad que simulan la presencia de autos en cada tramo.
 		\item Tareas que controlan el comportamiento de cada semáforo.
 		\item La intersección es el recurso compartido entre todas las tareas.
@@ -49,10 +50,20 @@
 \end{frame}
 
 \begin{frame}
+\frametitle{Implementación}
+\begin{block}{}
+	\begin{itemize}
+		\item Implementación sobre la plataforma Arduino.
+		%\item Plaqueta Arduino UNO con el microcontrolador ATMEL
+	\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
 \frametitle{Todos los tramos inactivos}
 	\begin{figure}[htbp]
 		\centering
-		\includegraphics[width=0.60\textwidth]{diagramas/ningun-activo.eps}
+		\includegraphics[width=0.50\textwidth]{diagramas/ningun-activo.eps}
 	\end{figure}
 	El sistema debe responder haciendo Round-Robin entre todos los semáforos inactivos.
 \end{frame}
@@ -61,7 +72,7 @@
 \frametitle{Un tramo activo}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.60\textwidth]{diagramas/un-activo.eps}
+	\includegraphics[width=0.50\textwidth]{diagramas/un-activo.eps}
 \end{figure}
 El sistema debe otorgarle verde sólo al semáforo activo.
 \end{frame}
@@ -70,7 +81,7 @@ El sistema debe otorgarle verde sólo al semáforo activo.
 \frametitle{Más de un tramo activo}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.60\textwidth]{diagramas/dos-activos.eps}
+	\includegraphics[width=0.50\textwidth]{diagramas/dos-activos.eps}
 \end{figure}
 El sistema debe responder haciendo Round-Robin sólo entre los semáforos activos.
 \end{frame}
@@ -79,7 +90,7 @@ El sistema debe responder haciendo Round-Robin sólo entre los semáforos activo
 \frametitle{Todos los tramos activos}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.60\textwidth]{diagramas/todos-activos.eps}
+	\includegraphics[width=0.50\textwidth]{diagramas/todos-activos.eps}
 \end{figure}
 El sistema debe responder haciendo Round-Robin entre todos los semáforos.
 \end{frame}
@@ -88,7 +99,7 @@ El sistema debe responder haciendo Round-Robin entre todos los semáforos.
 \frametitle{Interacción con peatones}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.60\textwidth]{diagramas/peaton-auto.eps}
+	\includegraphics[width=0.50\textwidth]{diagramas/peaton-auto.eps}
 \end{figure}
 La pulsación del botón le indica al sistema que por una única vez se le debe dar paso al peatón y luego se continúa de acuerdo a la actividad de cada tramo.
 \end{frame}
@@ -105,6 +116,7 @@ La pulsación del botón le indica al sistema que por una única vez se le debe 
 	\begin{itemize}
 		\item Planificación a cargo de una tarea de alta prioridad.
 		\item Diferentes prioridades estáticas.
+		\item Gran cantidad de tareas corriendo en simultáneo.
 		\item Modelo productor-consumidor.
 		\item Poca escalabilidad.
 		\item Dificultad para agregar un control sobre los peatones.
@@ -120,6 +132,7 @@ La pulsación del botón le indica al sistema que por una única vez se le debe 
 	\begin{itemize}
 		\item Planificación a cargo del scheduler de FreeRTOS.
 		\item Prioridades variables a lo largo del tiempo.
+		\item Además de las tareas de los semáforos, una tarea para el botón.
 		\item Escalabilidad.
 		\item Permite agregar una tarea que controle la circulación de los peatones.
 		\item Grave problema respecto al cambio de prioridad sobre tareas bloqueadas.
@@ -145,6 +158,7 @@ La pulsación del botón le indica al sistema que por una única vez se le debe 
 		\item Cada semáforo se duerme en su propio mutex.
 		\item No se realizan cambios de prioridades sobre tareas dormidas.
 		\item Prioridades estáticas.
+		\item Pocas tareas ejecutándose concurrentemente.
 		\item Escalabilidad.
 		\item Permite fácilmente agregar el control del peatón como si fuese otro semáforo más.
 		\item Modelo \emph{passing the baton}.
