@@ -43,48 +43,55 @@
 		\item La intersección es el recurso compartido entre todas las tareas.
 		\item Los accesos deben serializarse.
 		\item Primitivas de sincronización (mutexes).
+		\item El sistema debe responder a diferentes casos generales.
 	\end{itemize}
 \end{block}
 \end{frame}
 
-\subsection{Ningún tramo activo}
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=0.8\textwidth]{diagramas/leyenda.eps}
-\end{figure}
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=0.8\textwidth]{diagramas/ningun-activo.eps}
-	\caption{Esquema con todos los tramo inactivos.}
-\end{figure}
+\begin{frame}
+\frametitle{Todos los tramos inactivos}
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.65\textwidth]{diagramas/ningun-activo.eps}
+	\end{figure}
+	El sistema debe responder haciendo Round-Robin entre todos los semáforos inactivos.
+\end{frame}
 
-\subsection{Un tramo activo}
+\begin{frame}
+\frametitle{Un tramo activo}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1.2\textwidth]{diagramas/un-activo.eps}
-	\caption{Esquema con un solo tramo activo.}
+	\includegraphics[width=0.65\textwidth]{diagramas/un-activo.eps}
 \end{figure}
+El sistema debe otorgarle verde sólo al semáforo activo.
+\end{frame}
 
-\subsection{Más de un tramo activo}
+\begin{frame}
+\frametitle{Más de un tramo activo}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.9\textwidth]{diagramas/dos-activos.eps}
-	\caption{Esquema con más de un tramo activo.}
+	\includegraphics[width=0.65\textwidth]{diagramas/dos-activos.eps}
 \end{figure}
+El sistema debe responder haciendo Round-Robin sólo entre los semáforos activos.
+\end{frame}
 
-\subsection{Todos los tramos activos}
+\begin{frame}
+\frametitle{Más de un tramo activo}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.5\textwidth]{diagramas/todos-activos.eps}
-	\caption{Esquema con todos los tramos activos.}
+	\includegraphics[width=0.65\textwidth]{diagramas/todos-activos.eps}
 \end{figure}
+El sistema debe responder haciendo Round-Robin entre todos los semáforos.
+\end{frame}
 
-\subsection{Peatones}
+\begin{frame}
+\frametitle{Interacción con peatones}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1\textwidth]{diagramas/peaton-auto.eps}
-	\caption{Esquema de un tramo activo con peatones.}
+	\includegraphics[width=0.60\textwidth]{diagramas/peaton-auto.eps}
 \end{figure}
+La pulsación del botón le indica al sistema que por una única vez se le debe dar paso al peatón y luego se continúa de acuerdo a la actividad de cada tramo.
+\end{frame}
 
 %------------------------------------------------
 \section{Implementaciones}
@@ -152,5 +159,10 @@
 \subsection{Conclusiones}
 \begin{frame}
 	\begin{block}{Conclusiones}
+		\begin{itemize}
+			\item Los cambios de prioridades de tareas en estado bloqueadas no son inmediatos.
+			\item El orden del Round-Robin del scheduler no es configurable.
+			\item La implementación no oficial de FreeRTOS para arduino puede tener problemas al manejar prioridades.
+		\end{itemize}
 	\end{block}
 \end{frame}
