@@ -2,101 +2,126 @@
 \section{Introducción} 
 %------------------------------------------------
 
+\subsection{Motivación}
+
 \begin{frame}
-	\frametitle{Antecedentes}
+	\frametitle{Introducción}
+		\begin{block}{Motivación}
+			\begin{itemize}
+				\item Larga espera.
+				\item Optimización del control de paso.
+				\item Peatones.
+				\item Reducción de consumo.
+				\item Contaminación ambiental.
+			\end{itemize}
+		\end{block}
+\end{frame}
+
+\subsection{Antecedentes}
+
+\begin{frame}
+\frametitle{Introducción}
+\begin{block}{Antecedentes}
 	\begin{itemize}
 		\item Holanda: Reducción de tiempo entre transiciones % Menos espera teneiendo en cuenta estadistica de acción de los autos entre que aceleran
-		\item Brasil: ``SEMIT", utilizando sensores, prioridad, etc % Con paneles solares.
+		\item Brasil: ``SEMINT", utilizando sensores, prioridad, etc % Con paneles solares.
 		\item San Juan: Año 2008, utilizando sensores, procesamiento automático
 	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\begin{block}{Motivación}
-		\begin{itemize}
-			\item Larga espera
-			\item Optimización de el control del paso
-		\end{itemize}
-	\end{block}
-
-	\begin{block}{Características generales}
-		\begin{itemize}
-			\item Control de tránsito vehicular y peatones
-			\item Algoritmo flexible y manejo de prioridades según el contexto
-			\item Implementado en FreeRTOS
-			\item Semáforos de tres etapas
-		\end{itemize}
-	\end{block}
-\end{frame}
-
-\section{Glosario}
-
-\begin{frame}
-	\begin{block}{Términos}
-		\begin{itemize}
-			\item Tramo: sentido en el que se circulan los vehículos
-			\item Actividad: estado de un semáforo en el que el sensor del semáforo detecta vehículos o peatones
-		\end{itemize}
-	\end{block}
+\end{block}
 \end{frame}
 
 %------------------------------------------------
-\section{Especificación}
+\section{Modelado y abstracción}
 %------------------------------------------------
 
-\subsection{Funcionamiento}
+\begin{frame}
+\frametitle{Modelado y abstracción}
+\begin{block}{Intersección entre dos avenidas}
+	\begin{itemize}
+		\item Sensores de proximidad que simulan la presencia de autos en cada tramo.
+		\item Tareas que controlan el comportamiento de cada semáforo.
+		\item La intersección es el recurso compartido entre todas las tareas.
+		\item Los accesos deben serializarse.
+		\item Primitivas de sincronización (mutexes).
+	\end{itemize}
+\end{block}
+\end{frame}
+
+\subsection{Ningún tramo activo}
+
+\subsection{Un tramo activo}
+
+\subsection{Más de un tramo activo}
+
+\subsection{Todos los tramos activos}
+
+\subsection{Peatones}
+
+%------------------------------------------------
+\section{Implementaciones}
+%------------------------------------------------
+
+\subsection{Primera implementación}
 
 \begin{frame}
-	\begin{columns}[T]
-		\begin{column}{.35\textwidth}
+\frametitle{Implementaciones}
+\begin{block}{Única sección crítica con una clase controlador.}
+	\begin{itemize}
+		\item Planificación a cargo de una tarea de alta prioridad.
+		\item Diferentes prioridades estáticas.
+		\item Modelo productor-consumidor.
+		\item Poca escalabilidad.
+		\item Dificultad para agregar un control sobre los peatones.
+		%\item Debido a las prioridades estáticas, cuando todos los tramos están inactivos, no se puede realizar el Round-Robin%
+	\end{itemize}
+\end{block}
+\end{frame}
 
-			\begin{figure}[ht]
-				\centering 
-				\includegraphics[scale=0.6]{diagramas/fsm-light.pdf}
-			\end{figure}
+\subsection{Segunda implementación}
+\begin{frame}
+\frametitle{Implementaciones}
+\begin{block}{Única sección crítica sin una clase controlador.}
+	\begin{itemize}
+		\item Planificación a cargo del scheduler de FreeRTOS.
+		\item Prioridades variables a lo largo del tiempo.
+		\item Escalabilidad.
+		\item Permite agregar una tarea que controle la circulación de los peatones.
+		\item Grave problema respecto al cambio de prioridad sobre tareas bloqueadas.
+	\end{itemize}
+\end{block}
+\end{frame}
 
-		\end{column}
-		\hfill
-		\begin{column}{.65\textwidth}
-			
-			\begin{block}{Funcionamiento entre estados}
-				\begin{itemize}
-					\item Si el semáforo cambia de estado a activo, la transición es de rojo a verde
-					\item Si solo el semáforo permanece activo y es el único, permaneces en verde
-				\end{itemize}
-			\end{block}
-			\begin{block}{Funcionamiento entre semáforos}
-				\begin{itemize}
-					\item Los semáforos realizan Round-Robin entre todos si ninguno está activo
-					\item Si al menos dos están activos se realiza Round-Robin entre los activos
-					\item Si hay solo un semáforo activo, permanece en verde
-				\end{itemize}
-			\end{block}
-		
-		\end{column}
-	\end{columns}
+\subsection{Problemas}
+\begin{frame}
+\frametitle{Problemas}
+\begin{block}{}
+	\begin{itemize}
+		\item
+	\end{itemize}
+\end{block}
+\end{frame}
+
+\subsection{Tercera Implemetanción}
+\begin{frame}
+\frametitle{Implementaciones}
+\begin{block}{Múltiples secciones críticas y sistema basado en turnos.}
+	\begin{itemize}
+		\item Cada semáforo se duerme en su propio mutex.
+		\item No se realizan cambios de prioridades sobre tareas dormidas.
+		\item Prioridades estáticas.
+		\item Escalabilidad.
+		\item Permite fácilmente agregar el control del peatón como si fuese otro semáforo más.
+		\item Modelo \emph{passing the baton}.
+	\end{itemize}
+\end{block}
 \end{frame}
 
 %------------------------------------------------
-\section{Problemas}
+\section{Conclusiones}
 %------------------------------------------------
 
-\subsection{Iteraciones}
-
+\subsection{Conclusiones}
 \begin{frame}
-	\begin{block}{Iteraciones}
-		Aspectos más importantes en cada iteración
-		\begin{itemize}
-			\item[1] Conjuntos de activos y inactivos, fuerte pasaje de datos entre tareas,  difícil corrección, clases: sensor, controlador y semáforos
-			\item[2] Con prioridades variables
-			\item[3] Sin prioridades variables, simplificación del modelo.
-		\end{itemize}
+	\begin{block}{Conclusiones}
 	\end{block}
-\end{frame}
-
-\subsection{Problemas con la implementación}
-
-\begin{frame}
-	\frametitle{Problemas con la implementación}
 \end{frame}
