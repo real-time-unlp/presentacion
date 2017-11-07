@@ -50,16 +50,6 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Implementación}
-\begin{block}{}
-	\begin{itemize}
-		\item Implementación sobre la plataforma Arduino.
-		%\item Plaqueta Arduino UNO con el microcontrolador ATMEL
-	\end{itemize}
-\end{block}
-\end{frame}
-
-\begin{frame}
 \frametitle{Todos los tramos inactivos}
 	\begin{figure}[htbp]
 		\centering
@@ -108,18 +98,29 @@ La pulsación del botón le indica al sistema que por una única vez se le debe 
 \section{Implementaciones}
 %------------------------------------------------
 
+\begin{frame}
+\frametitle{Plataforma de desarrollo}
+\begin{block}{}
+	\begin{itemize}
+		\item Implementación sobre la plataforma Arduino.
+		\item Implementación no oficialmente soportada de FreeRTOS.%\href{https://github.com/feilipu/Arduino\_FreeRTOS\_Library}
+
+		%\item Plaqueta Arduino UNO con el microcontrolador ATMEL
+	\end{itemize}
+\end{block}
+\end{frame}
 \subsection{Primera implementación}
 
 \begin{frame}
 \frametitle{Implementaciones}
-\begin{block}{Única sección crítica con una clase controlador.}
+\begin{block}{Única sección crítica con una clase controlador}
 	\begin{itemize}
 		\item Planificación a cargo de una tarea de alta prioridad.
 		\item Diferentes prioridades estáticas.
 		\item Gran cantidad de tareas corriendo en simultáneo.
-		\item Modelo productor-consumidor.
+		\item Modelo productor-consumidor para el pasaje de datos.
 		\item Poca escalabilidad.
-		\item Dificultad para agregar un control sobre los peatones.
+		\item Dificultad para considerar un semáforo para peatones.
 		%\item Debido a las prioridades estáticas, cuando todos los tramos están inactivos, no se puede realizar el Round-Robin%
 	\end{itemize}
 \end{block}
@@ -128,40 +129,46 @@ La pulsación del botón le indica al sistema que por una única vez se le debe 
 \subsection{Segunda implementación}
 \begin{frame}
 \frametitle{Implementaciones}
-\begin{block}{Única sección crítica sin una clase controlador.}
+\begin{block}{Única sección crítica sin una clase controlador}
 	\begin{itemize}
 		\item Planificación a cargo del scheduler de FreeRTOS.
 		\item Prioridades variables a lo largo del tiempo.
-		\item Además de las tareas de los semáforos, una tarea para el botón.
-		\item Escalabilidad.
-		\item Permite agregar una tarea que controle la circulación de los peatones.
-		\item Grave problema respecto al cambio de prioridad sobre tareas bloqueadas.
+		\item Admite fácilmente un semáforo que controle la circulación de los peatones.
+		\item Una tarea por semáforo más una tarea de sensado para el botón para peatones.
+		\item Fácil de añadir más semáforos.
+		\item Admite fácilmente un semáforo que controle la circulación de los peatones.
+		\item Grave problema con el cambio de prioridades sobre tareas bloqueadas.
+
 	\end{itemize}
 \end{block}
 \end{frame}
 
 \subsection{Problemas}
 \begin{frame}
-\frametitle{Problemas}
-\begin{block}{}
+\frametitle{Problemas en las primeras implementaciones}
+\begin{block}{Primera implementación}
+	\begin{itemize}
+		\item
+	\end{itemize}
+\end{block}
+\begin{block}{Segunda implementación}
 	\begin{itemize}
 		\item
 	\end{itemize}
 \end{block}
 \end{frame}
 
-\subsection{Tercera Implemetanción}
+\subsection{Tercera Implementación}
 \begin{frame}
 \frametitle{Implementaciones}
 \begin{block}{Múltiples secciones críticas y sistema basado en turnos.}
 	\begin{itemize}
-		\item Cada semáforo se duerme en su propio mutex.
-		\item No se realizan cambios de prioridades sobre tareas dormidas.
-		\item Prioridades estáticas.
+		\item Cada semáforo se duerme en su propio mútex.
+		\item Prioridades fijas.
 		\item Pocas tareas ejecutándose concurrentemente.
-		\item Escalabilidad.
+		\item Fácil de expandir.
 		\item Permite fácilmente agregar el control del peatón como si fuese otro semáforo más.
-		\item Modelo \emph{passing the baton}.
+		\item Utilización de la técnica \emph{passing the baton}.
 	\end{itemize}
 \end{block}
 \end{frame}
@@ -176,7 +183,7 @@ La pulsación del botón le indica al sistema que por una única vez se le debe 
 		\begin{itemize}
 			\item Los cambios de prioridades de tareas en estado bloqueadas no son inmediatos.
 			\item El orden del Round-Robin del scheduler no es configurable.
-			\item La implementación no oficial de FreeRTOS para arduino puede tener problemas al manejar prioridades.
+			\item La implementación no oficial de FreeRTOS para Arduino puede tener problemas al manejar prioridades.
 		\end{itemize}
 	\end{block}
 \end{frame}
