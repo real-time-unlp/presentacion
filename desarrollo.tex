@@ -125,23 +125,29 @@
 		\item Implementación no oficialmente soportada de FreeRTOS. \href{https://github.com/feilipu/Arduino/FreeRTOS/Library}{https://github.com/feilipu/Arduino/FreeRTOS/Library}
 	\end{itemize}
 
+\end{block}
+\begin{block}{Estrategias generales}
+	\begin{itemize}
+		\item Uso de tareas para representar semáforos.
+		\item Uso de técnicas de programacion concurrente y primitivas de sincronización (semáforos, mutexes, etc).
+	\end{itemize}
+\end{block}
 \begin{columns}[T]
 	\begin{column}{.35\linewidth}
 	\begin{figure}[htbp]
 		\centering
-		\includegraphics[height=5em, right]{diagramas/arduino.eps}
+		\includegraphics[height=3em, right]{diagramas/arduino.eps}
 	\end{figure}
 	\end{column}
 	\hfill
 	\begin{column}{.50\linewidth}
 		
 		\begin{figure}[htbp]
-			\includegraphics[height=5em,left]{diagramas/freertos.eps}
+			\includegraphics[height=3em,left]{diagramas/freertos.eps}
 		\end{figure}
 		
 	\end{column}
 \end{columns}
-\end{block}
 \end{frame}
 
 \subsection{Primera implementación}
