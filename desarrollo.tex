@@ -1,6 +1,7 @@
 %------------------------------------------------
 \section{Introducción} 
 %------------------------------------------------
+\newcommand{\tamInterseccion}{0.8}
 
 \subsection{Motivación}
 
@@ -71,7 +72,7 @@
 \frametitle{Todos los tramos inactivos}
 	\begin{figure}[htbp]
 		\centering
-		\includegraphics[width=0.750\textwidth]{diagramas/ningun-activo.eps}
+		\includegraphics[scale=\tamInterseccion]{diagramas/ningun-activo.eps}
 	\end{figure}
 	%El sistema debe responder haciendo Round-Robin entre todos los semáforos inactivos.
 \end{frame}
@@ -80,7 +81,7 @@
 \frametitle{Un tramo activo}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.750\textwidth]{diagramas/un-activo.eps}
+	\includegraphics[scale=\tamInterseccion]{diagramas/un-activo.eps}
 \end{figure}
 %El sistema debe otorgarle verde sólo al semáforo activo.
 \end{frame}
@@ -89,7 +90,7 @@
 \frametitle{Más de un tramo activo}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.750\textwidth]{diagramas/dos-activos.eps}
+	\includegraphics[scale=\tamInterseccion]{diagramas/dos-activos.eps}
 \end{figure}
 %El sistema debe responder haciendo Round-Robin sólo entre los semáforos activos.
 \end{frame}
@@ -98,7 +99,7 @@
 \frametitle{Todos los tramos activos}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.750\textwidth]{diagramas/todos-activos.eps}
+	\includegraphics[scale=\tamInterseccion]{diagramas/todos-activos.eps}
 \end{figure}
 %El sistema debe responder haciendo Round-Robin entre todos los semáforos.
 \end{frame}
@@ -107,7 +108,7 @@
 \frametitle{Interacción con peatones}
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.750\textwidth]{diagramas/peaton-auto.eps}
+	\includegraphics[scale=\tamInterseccion]{diagramas/peaton-auto.eps}
 \end{figure}
 %La pulsación del botón le indica al sistema que por una única vez se le debe dar paso al peatón y luego se continúa de acuerdo a la actividad de cada tramo.
 \end{frame}
