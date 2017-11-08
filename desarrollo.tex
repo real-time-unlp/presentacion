@@ -147,7 +147,7 @@
 \subsection{Primera implementación}
 
 \begin{frame}
-\frametitle{Implementaciones}
+\frametitle{Implementación A}
 \begin{block}{Única sección crítica con una clase controlador}
 	\begin{itemize}
 		\item Planificación a cargo de una tarea de alta prioridad.
@@ -157,7 +157,7 @@
 		\item Modelo productor-consumidor para el pasaje de datos.
 	\end{itemize}
 \end{block}
-\begin{block}{Problemas de la implementación}
+\begin{block}{Problemas de esta implementación}
 	\begin{itemize}
 		\item Poca escalabilidad.
 		\item Dificultad para considerar un semáforo para peatones.
@@ -167,9 +167,9 @@
 \end{block}
 \end{frame}
 
-\subsection{Segunda implementación}
+\subsection{Implementación B}
 \begin{frame}
-\frametitle{Implementaciones}
+\frametitle{Implementación B}
 \begin{block}{Única sección crítica sin una clase controlador}
 	\begin{itemize}
 		\item Planificación a cargo del scheduler de FreeRTOS.
@@ -182,24 +182,22 @@
 \end{block}
 \end{frame}
 
-\subsection{Problemas}
+\subsection{Problemas de la implementación B}
 \begin{frame}
-\frametitle{Problemas en las primeras implementaciones}
-\begin{block}{Primera implementación}
+\frametitle{Problemas de la implementación B}
+\begin{block}{}
 	\begin{itemize}
-		\item
-	\end{itemize}
-\end{block}
-\begin{block}{Segunda implementación}
-	\begin{itemize}
-		\item
+		\item El planificador no se comporta como se esperaba.
+		\item El orden del Round-Robin está dado por el orden en que se bloquean las tareas. Existe un workaround.
+		\item El cambio de prioridad de tareas bloqueadas se retrasa.
+		\item Posible bug en el port de FreeRTOS para Arduino (Se tomó como referencia una implementación simulada de FreeRTOS para Win32).
 	\end{itemize}
 \end{block}
 \end{frame}
 
-\subsection{Tercera Implementación}
+\subsection{Implementación C}
 \begin{frame}
-\frametitle{Implementaciones}
+\frametitle{Implementación C}
 \begin{block}{Múltiples secciones críticas y sistema basado en turnos.}
 	\begin{itemize}
 		\item Cada semáforo se duerme en su propio mútex.
